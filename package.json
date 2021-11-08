@@ -14,7 +14,10 @@
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
+    "api": "api-extractor run",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "jest --config jest.config.ts",
+    "test:e2e": "jest --config jsdom.jest.config.ts",
     "format": "prettier --write \"packages/**/*.ts?(x)\" && eslint --fix --ext .ts packages",
     "format:package": "prettier --write \"packages/**/package.json\""
   },

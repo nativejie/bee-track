@@ -1,7 +1,3 @@
-class Utils {
-  constructor() {
-    console.log('this is utils');
-  }
-}
-
-export default Utils;
+export * from './type';
+export * from './validator';
+// export * from './global';

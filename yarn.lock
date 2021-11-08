@@ -3514,6 +3514,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/wechat-miniprogram@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.nlark.com/@types/wechat-miniprogram/download/@types/wechat-miniprogram-3.4.0.tgz#d743d5b3c17bd531c2c178ea1fe9d92a0b23bcd0"
+  integrity sha1-10PVs8F71THCwXjqH+nZKgsjvNA=
+
 "@types/yargs-parser@*":
   version "20.2.1"
   resolved "https://registry.nlark.com/@types/yargs-parser/download/@types/yargs-parser-20.2.1.tgz?cache=0&sync_timestamp=1629709862537&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fyargs-parser%2Fdownload%2F%40types%2Fyargs-parser-20.2.1.tgz#3b9ce2489919d9e4fea439b76916abc34b2df129"

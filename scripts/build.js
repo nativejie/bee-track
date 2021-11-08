@@ -74,6 +74,12 @@ async function rollupBuild(target) {
 
     const extractorConfigPath = path.resolve(pkgDir, `api-extractor.json`)
     const extractorConfig = ExtractorConfig.loadFileAndPrepare(extractorConfigPath)
+    const isExist = await fs.pathExists(extractorConfig.mainEntryPointFilePath)
+
+    if (!isExist) {
+      log.error('API Extractor not find index.d.ts')
+      return
+    }
     const extractorResult = Extractor.invoke(extractorConfig, {
       localBuild: true,
       showVerboseMessages: false

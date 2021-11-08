@@ -1,14 +1,14 @@
 {
-  "name": "@bee/track-utils",
+  "name": "@bee/track-shared",
   "version": "1.0.0",
-  "description": "@bee/track-utils",
+  "description": "@bee/track-shared",
   "main": "index.js",
-  "types": "dist/utils.d.ts",
+  "types": "dist/shared.d.ts",
   "scripts": {
     "build": "cross-env PACKAGE=utils lerna exec -- rollup -c ../../rollup.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "JieZhou",
   "license": "ISC",
   "dependencies": {
     "@types/wechat-miniprogram": "^3.4.0"

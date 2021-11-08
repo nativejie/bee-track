@@ -3,7 +3,8 @@
 
   "apiReport": {
     "enabled": true,
-    "reportFolder": "<projectFolder>/temp/"
+    "reportTempFolder": "<projectFolder>/api-doc/",
+    "reportFolder": "<projectFolder>/api-doc/"
   },
 
   "docModel": {

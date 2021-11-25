@@ -1,0 +1,15 @@
+{
+  "name": "@bee/track-vue",
+  "version": "1.0.0",
+  "description": "@bee/track-vue",
+  "main": "index.js",
+  "types": "dist/vue.d.ts",
+  "scripts": {
+    "build": "cross-env PACKAGE=utils lerna exec -- rollup -c ../../rollup.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JieZhou",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

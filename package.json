@@ -17,15 +17,15 @@
     "api": "api-extractor run",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:unit": "jest --config jest.config.ts",
-    "test:e2e": "jest --config jsdom.jest.config.ts",
+    "test:e2e": "jest --runTestsByPath  --config jsdom.jest.config.ts",
     "format": "prettier --write \"packages/**/*.ts?(x)\" && eslint --fix --ext .ts packages",
     "format:package": "prettier --write \"packages/**/package.json\""
   },
   "dependencies": {
     "docz": "^2.3.1",
-    "reflect-metadata": "^0.1.13",
     "react": "^16.10.1",
-    "react-dom": "^16.10.1"
+    "react-dom": "^16.10.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.18.17",
@@ -49,6 +49,7 @@
     "jest": "27.0.6",
     "jest-puppeteer": "^6.0.0",
     "lerna": "^4.0.0",
+    "lerna-update-wizard": "^1.1.0",
     "prettier": "^2.4.1",
     "puppeteer": "^10.4.0",
     "rollup-plugin-cleanup": "^3.2.1",

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body,html {
+    padding: 0;
+    margin: 0;
+  }
+  .container {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
+    background-color: #409EFF;
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    outline: none;
+    border: none;
+    opacity: .9;
+    cursor: pointer;
+  }
+  button:hover {
+    opacity: 1;
+  }
+</style>
+<body>
+  <div bee-track-click="{track: 'a.b.c.d.e', params: {'a': 1}}" class="container">
+    <button bee-track-click="{track: 'a.b.c.d.e', params: {'a': 1}}" id="sendNormalXHR">发送XHR请求</button>
+    <a href="./index-href.html" >Go Index Href</a>
+  </div>
+</body>
+<script src="./web.min.js" ></script>
+<script src="./index.js"></script>
+<script>
+</script>
+</html>

@@ -1,25 +1,51 @@
-import { isProcess, isUndefined, isFunction, isWindow, isObject } from '.';
+import { isProcess, isFunction, isWindow, isObject, Logger } from '.';
+import { ITackOptions } from '@bee/track-shared';
+import { Report } from '@bee/track-core';
 
-export const isNodeEnv = isProcess(isUndefined(process) ? 0 : process);
+export const isNodeEnv = isProcess(
+  typeof process !== 'undefined' ? process : 0,
+);
 
 export const isWxEnv =
-  isObject(isUndefined(wx) ? 0 : wx) && isFunction(isUndefined(App) ? 0 : wx);
+  isObject(typeof wx !== 'undefined' ? wx : 0) &&
+  isFunction(typeof App !== 'undefined' ? App : 0);
 
-export const isBrowserEnv = isWindow(isUndefined(window) ? 0 : window);
+export const isBrowserEnv = isWindow(
+  typeof window !== 'undefined' ? window : 0,
+);
 
 export const getGlobal = <T>() => {
   if (isBrowserEnv) {
-    return window as unknown as T;
+    return window as unknown as TrackGlobal & T;
   }
   if (isWxEnv) {
-    return wx as unknown as T;
+    return wx as unknown as TrackGlobal & T;
   }
   if (isNodeEnv) {
-    return process as unknown as T;
+    return process as unknown as TrackGlobal & T;
   }
 };
 
+type Router = {
+  from?: string;
+  to?: string;
+  title?: string;
+};
+export interface TrackProperties {
+  logger: Logger;
+  options: ITackOptions;
+  report: Report;
+  route?: Router;
+}
+
+interface TrackGlobal {
+  console?: Console;
+  __TRACK__?: TrackProperties;
+}
+
 const _global = getGlobal<Window>();
+const _extra = (_global.__TRACK__ =
+  _global.__TRACK__ || ({} as TrackProperties));
 
 export const supportsHistory = (): boolean => {
   // https://github.com/angular/angular.js/pull/13945/files
@@ -33,4 +59,4 @@ export const supportsHistory = (): boolean => {
   return !isChromePackagedApp && hasHistoryApi;
 };
 
-export { _global };
+export { _global, _extra };

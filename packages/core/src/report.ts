@@ -34,7 +34,15 @@ export class Report {
     this.distinctId = AES(isObject(user) ? JSON.stringify(user) : user);
   }
 
-  xhrPost(data: IReportData) {
+  imgSend(data: IReportData): void {
+    let img = new Image();
+    img.src = `${this.reportUrl}?data=${encodeURIComponent(
+      JSON.stringify(data),
+    )}`;
+    img = null;
+  }
+
+  xhrPost(data: IReportData): void {
     console.log('xhr post');
     const xhr = new XMLHttpRequest();
     xhr.open(RequestMethod.POST, this.reportUrl);
@@ -43,7 +51,7 @@ export class Report {
     xhr.send(JSON.stringify(data));
   }
 
-  async browserPost(data: IReportData) {
+  browserPost(data: IReportData): void {
     let stringifyData = '';
     if (!isString(data)) {
       stringifyData = JSON.stringify(data);
@@ -59,11 +67,13 @@ export class Report {
     }
   }
 
-  async beforeSend(data: any) {
+  beforeSend(data: IReportData) {
+    data.distinctId = this.distinctId;
+    data.appKey = this.appKey;
     return data;
   }
 
-  async send(data: IReportData | IHttpReportData) {
+  send(data: IReportData | IHttpReportData): void {
     if (!this.reportUrl) {
       logger.error('report url can not be empty');
       return;
@@ -72,17 +82,10 @@ export class Report {
       logger.error('app key can not be empty');
       return;
     }
-    const result = await this.beforeSend(data);
+    const result = this.beforeSend(data);
     if (isBrowserEnv) {
       return this.browserPost(result);
     }
-  }
-
-  getDistinctId() {
-    if (!('navigator' in _global)) {
-      return;
-    }
-    const { userAgent } = _global.navigator;
   }
 }
 

@@ -20,11 +20,12 @@ export interface IReportExtraData {
   xpath?: string;
 }
 export interface IReportData {
-  id?: string;
+  distinctId?: string;
   trackId?: number;
   event?: string;
   trackTime?: number;
   extra?: IReportExtraData;
+  appKey?: string;
 }
 
 export interface IHttpReportData extends IReportData {

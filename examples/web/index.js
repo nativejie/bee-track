@@ -8,21 +8,12 @@
 
   console.log(window);
 
-  // document
-  //   .querySelector('#sendNormalXHR')
-  //   .addEventListener('click', function (e) {
-  //     console.log(e);
-  //     console.log(e.path);
-  //     e.composedPath().forEach((node) => {
-  //       const { tagName, localName, id } = node;
-  //       console.log(tagName, ' - ', localName);
-  //       console.log(`${localName}${id ? '#' + id : ''}`);
-  //       if (tagName && node.getAttribute('bee-track-click')) {
-  //         console.log(node.getAttribute('bee-track-click'));
-  //       }
-  //     });
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.open('get', '/user/123');
-  //     xhr.send();
-  //   });
+  document
+    .querySelector('#sendNormalXHR')
+    .addEventListener('click', function (e) {
+      history.back();
+      const xhr = new XMLHttpRequest();
+      xhr.open('get', '/user/123');
+      xhr.send();
+    });
 })();

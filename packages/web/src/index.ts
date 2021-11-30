@@ -6,6 +6,7 @@ const init = (options: ITackOptions): void => {
   if (!('XMLHttpRequest' in _global) || options.disable === true) {
     return;
   }
+  options = { ...options, domEventProxy: true };
   setup(options);
 };
 

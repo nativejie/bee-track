@@ -1,6 +1,12 @@
 import { ITackOptions } from '@bee/track-shared';
 import { logger, _extra } from '@bee/track-utils';
-import { documentEventProxy, historyProxy, report } from '.';
+import {
+  documentEventProxy,
+  fetchProxy,
+  historyProxy,
+  listenHashChange,
+  report,
+} from '.';
 import { XHRProxy } from './proxy';
 const initOptions = (options: ITackOptions) => {
   _extra.options = options;
@@ -11,10 +17,19 @@ const initOptions = (options: ITackOptions) => {
 };
 
 const proxy = (options: ITackOptions) => {
-  XHRProxy();
-  historyProxy();
-  documentEventProxy();
+  const { httpProxy, domEventProxy, routeProxy } = options;
   console.log('proxy something');
+  if (httpProxy === true) {
+    XHRProxy();
+    fetchProxy();
+  }
+  if (domEventProxy === true) {
+    documentEventProxy();
+  }
+  if (routeProxy === true) {
+    historyProxy();
+    listenHashChange();
+  }
 };
 
 export const setup = async (options: ITackOptions) => {

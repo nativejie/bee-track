@@ -103,7 +103,6 @@ export const fetchProxy = () => {
 let lastHref: string = getLocationHref();
 export const historyProxy = () => {
   if (!supportsHistory()) {
-    logger.warn('The browser does not support history');
     return;
   }
   /**
@@ -121,7 +120,6 @@ export const historyProxy = () => {
       from,
       to,
     };
-    logger.log('hisotry go: ', from, to, _extra);
     oldOpopstate && oldOpopstate.apply(this, args);
   };
 
@@ -135,7 +133,6 @@ export const historyProxy = () => {
         from,
         to,
       };
-      logger.log('pushState go: ', from, to, _extra);
       TrackEvent.emit(TrackEventType.ROUTE, { from, to });
     }
     return;

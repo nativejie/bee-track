@@ -1,6 +1,6 @@
 {
   "name": "@bee/track-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@bee/track-utils",
   "main": "dist/utils.js",
   "module": "dist/utils.esm.js",
@@ -12,8 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@bee/track-core": "^1.0.0",
-    "@bee/track-shared": "^1.0.0",
+    "@bee/track-core": "^1.0.1",
+    "@bee/track-shared": "^1.0.1",
     "@types/wechat-miniprogram": "^3.4.0",
     "crypto-js": "^4.1.1",
     "js-cookie": "^3.0.1",

@@ -1,6 +1,6 @@
 {
   "name": "@bee/track-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@bee/track-vue",
   "main": "dist/vue.js",
   "module": "dist/vue.esm.js",

@@ -1,6 +1,6 @@
 {
   "name": "@bee/track-shared",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "@bee/track-shared",
   "main": "dist/shared.js",
   "module": "dist/shared.esm.js",

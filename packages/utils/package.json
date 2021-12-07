@@ -2,7 +2,8 @@
   "name": "@bee/track-utils",
   "version": "1.0.0",
   "description": "@bee/track-utils",
-  "main": "index.js",
+  "main": "dist/utils.js",
+  "module": "dist/utils.esm.js",
   "types": "dist/utils.d.ts",
   "scripts": {
     "build": "cross-env PACKAGE=utils lerna exec -- rollup -c ../../rollup.config.js",

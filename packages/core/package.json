@@ -2,7 +2,8 @@
   "name": "@bee/track-core",
   "version": "1.0.0",
   "description": "@bee/track-core",
-  "main": "index.js",
+  "main": "dist/core.js",
+  "module": "dist/core.esm.js",
   "types": "core/utils.d.ts",
   "scripts": {
     "build": "cross-env PACKAGE=core lerna exec -- rollup -c ../../rollup.config.js",

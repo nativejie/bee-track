@@ -2,7 +2,8 @@
   "name": "@bee/track-vue",
   "version": "1.0.0",
   "description": "@bee/track-vue",
-  "main": "index.js",
+  "main": "dist/vue.js",
+  "module": "dist/vue.esm.js",
   "types": "dist/vue.d.ts",
   "scripts": {
     "build": "cross-env PACKAGE=utils lerna exec -- rollup -c ../../rollup.config.js",

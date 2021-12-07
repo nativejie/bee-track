@@ -2,7 +2,8 @@
   "name": "@bee/track-shared",
   "version": "1.0.0",
   "description": "@bee/track-shared",
-  "main": "index.js",
+  "main": "dist/shared.js",
+  "module": "dist/shared.esm.js",
   "types": "dist/shared.d.ts",
   "scripts": {
     "build": "cross-env PACKAGE=utils lerna exec -- rollup -c ../../rollup.config.js",

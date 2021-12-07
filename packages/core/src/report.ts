@@ -80,7 +80,7 @@ export class Report {
       return;
     }
     if (!this.appKey) {
-      logger.error('app key can not be empty');
+      logger.error('appkey can not be empty');
       return;
     }
     const result = this.beforeSend(data);

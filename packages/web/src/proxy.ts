@@ -25,7 +25,6 @@ const XHRProxy = () => {
   if (!('XMLHttpRequest' in _global)) {
     return;
   }
-
   let xhrTrackData: IHttpTack = {} as IHttpTack;
   proxyHelper(XMLHttpRequest.prototype, 'open', function (...args: any[]) {
     xhrTrackData = {
@@ -34,7 +33,6 @@ const XHRProxy = () => {
       startTime: Date.now(),
       type: HttpType.XHR,
     };
-    logger.log('XHR Opened: ', xhrTrackData);
   });
 
   proxyHelper(XMLHttpRequest.prototype, 'open', function (...args: any[]) {
@@ -176,7 +174,6 @@ export const domEventProxy = () => {
   if (!('document' in _global)) {
     return;
   }
-
   _global.document.addEventListener(
     'click',
     function (e: MouseEvent) {

@@ -31,3 +31,17 @@ init({
     user: 'xxxx',
 });
 ```
+
+### 配置项
+
+|  属性   | 类型  | 必填  | 描述  |
+|  ----  | ----  | ----  | ----  |
+| appKey  | string | 是  | appKey 项目唯一标识 |
+| reportUrl  | string | 是 | 数据上报地址 |
+| debug | boolean | 否 | 是否打印调试信息 默认`false` |
+| disable | boolean | 否 | 是否禁用埋点 默认`false` |
+| user | boolean | 否 | 用户相关信息 默认空|
+|proxyEvent | string[]|否|代理的事件，可选`console`、`http`、`route`、`dom`, 默认不填就是所有|
+|httpWhiteList | string[]| 否|拦截http请求的白名单 默认空|
+|maxRecords|number|否|最大可储存的条数 - 暂时没用|
+

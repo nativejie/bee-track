@@ -31,7 +31,7 @@ export const getLocationHref = (): string => {
 export const getWindowScreen = () => {
   if (isBrowserEnv) {
     const { width, height } = _global.screen;
-    return { screenWidth: width, screentHeight: height };
+    return { screenWidth: width, screenHeight: height };
   }
   if (isWxEnv) {
     const { windowHeight, windowWidth } = wx.getSystemInfoSync();

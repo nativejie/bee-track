@@ -49,6 +49,5 @@ export class Logger {
     this._console.error(`[ERROR] ${LOGGER_PREFIX}: `, ...args);
   }
 }
-console.log(_extra);
 const logger = _extra.logger || (_extra.logger = new Logger());
 export { logger };

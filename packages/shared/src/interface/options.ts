@@ -1,3 +1,4 @@
+export type ProxyType = 'dom' | 'http' | 'console' | 'route';
 export interface ITackOptions {
   /**
    * appKey 项目唯一标识
@@ -25,17 +26,17 @@ export interface ITackOptions {
   user?: string;
 
   /**
-   * 代理路由
+   * 代理的事件
    */
-  routeProxy?: boolean;
+  proxyEvent: ProxyType[];
 
   /**
-   * 代理DOM事件
+   * 拦截http请求的白名单
    */
-  domEventProxy?: boolean;
+  httpWhiteList: string[];
 
   /**
-   * 代理http请求
+   * 最大存储条数
    */
-  httpProxy?: boolean;
+  maxRecords?: number;
 }

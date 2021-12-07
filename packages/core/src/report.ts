@@ -3,6 +3,7 @@ import {
   IReportData,
   RequestMethod,
   IHttpReportData,
+  LIB_VERSION,
 } from '@bee/track-shared';
 import {
   logger,
@@ -43,7 +44,6 @@ export class Report {
   }
 
   xhrPost(data: IReportData): void {
-    console.log('xhr post');
     const xhr = new XMLHttpRequest();
     xhr.open(RequestMethod.POST, this.reportUrl);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
@@ -52,16 +52,16 @@ export class Report {
   }
 
   browserPost(data: IReportData): void {
-    let stringifyData = '';
-    if (!isString(data)) {
-      stringifyData = JSON.stringify(data);
-    }
+    const stringifyData = !isString(data) ? JSON.stringify(data) : data;
     if (
       'navigator' in _global &&
       'sendBeacon' in navigator &&
       stringifyData.length < 65536
     ) {
-      navigator.sendBeacon(this.reportUrl, stringifyData);
+      const blob = new Blob([stringifyData], {
+        type: 'application/json',
+      });
+      navigator.sendBeacon(this.reportUrl, blob);
     } else {
       this.xhrPost(data);
     }
@@ -70,6 +70,7 @@ export class Report {
   beforeSend(data: IReportData) {
     data.distinctId = this.distinctId;
     data.appKey = this.appKey;
+    data.libVersion = LIB_VERSION;
     return data;
   }
 

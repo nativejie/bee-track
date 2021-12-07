@@ -1,3 +1,5 @@
+import { version } from '../package.json'
+
 export enum HTTP_CODE {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
@@ -7,3 +9,5 @@ export enum HTTP_CODE {
 export const LOGGER_PREFIX = 'Bee Track Logger';
 
 export const SECRET = 'BEE-TRACK';
+
+export const LIB_VERSION = version;

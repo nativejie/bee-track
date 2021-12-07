@@ -5,23 +5,72 @@ import {
   getTrackId,
   getLocationHref,
   isEmptyObject,
+  getWindowScreen,
 } from '@bee/track-utils';
 import {
   IHttpReportData,
   IReportData,
   IHttpTack,
   IDomEventTrack,
+  IRouteEventTrack,
+  IConsoleEventTrack,
 } from '@bee/track-shared';
 
 const getBasicData = (): IReportData => {
   const curPage = getLocationHref();
   const pageTitle = 'document' in _global ? document.title : '';
+  const screenInfo = getWindowScreen();
+  let networkType = '';
+  let rtt: number;
+  if ('navigator' in _global && 'connection' in _global['navigator']) {
+    rtt = (_global.navigator.connection as any).rtt;
+    networkType = (_global.navigator.connection as any).effectiveType;
+  }
   return {
     trackId: getTrackId(),
     trackTime: Date.now(),
     extra: {
       curPage,
       pageTitle,
+      ...screenInfo,
+      rtt,
+      networkType,
+    },
+  };
+};
+
+export const consoleEventTransform = (
+  data: IConsoleEventTrack,
+): IReportData => {
+  if (isEmptyObject(data) || !data) {
+    return {};
+  }
+  const basicData = getBasicData();
+  const { logType, logArgs } = data;
+  return {
+    ...basicData,
+    event: 'console',
+    extra: {
+      ...basicData.extra,
+      logType,
+      logArgs,
+    },
+  };
+};
+
+export const routeTransform = (data: IRouteEventTrack): IReportData => {
+  if (isEmptyObject(data) || !data) {
+    return {};
+  }
+  const basicData = getBasicData();
+  const { from, to } = data;
+  return {
+    ...basicData,
+    event: 'route',
+    extra: {
+      ...basicData.extra,
+      prevPage: from,
+      curPage: to,
     },
   };
 };
@@ -31,7 +80,7 @@ export const domEventTransform = (data: IDomEventTrack): IReportData => {
     return {};
   }
   const basciData = getBasicData();
-  const { point, xpath, params, event } = data;
+  const { point, xpath, params, event, elementProperties } = data;
   return {
     ...basciData,
     event,
@@ -40,6 +89,7 @@ export const domEventTransform = (data: IDomEventTrack): IReportData => {
       xpath,
       params,
       ...basciData.extra,
+      ...elementProperties,
     },
   };
 };

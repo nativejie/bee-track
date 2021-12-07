@@ -1,6 +1,6 @@
 import { isProcess, isFunction, isWindow, isObject, Logger } from '.';
 import { ITackOptions } from '@bee/track-shared';
-import { Report } from '@bee/track-core';
+import { Report, Record } from '@bee/track-core';
 
 export const isNodeEnv = isProcess(
   typeof process !== 'undefined' ? process : 0,
@@ -36,6 +36,7 @@ export interface TrackProperties {
   options: ITackOptions;
   report: Report;
   route?: Router;
+  records: Record;
 }
 
 interface TrackGlobal {

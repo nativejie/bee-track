@@ -17,4 +17,15 @@ export interface IDomEventTrack {
   point: string;
   xpath: string;
   params: string;
+  elementProperties: Record<string, any>;
+}
+
+export interface IRouteEventTrack {
+  from: string;
+  to: string;
+}
+
+export interface IConsoleEventTrack {
+  logType: string;
+  logArgs: string;
 }

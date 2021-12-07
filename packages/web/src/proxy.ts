@@ -7,6 +7,8 @@ import {
   getLocationHref,
   proxyHelper,
   isNil,
+  getEventElementPath,
+  getElementInfoByEvent,
 } from '@bee/track-utils';
 import {
   RequestMethod,
@@ -14,12 +16,12 @@ import {
   HttpType,
   IHttpTack,
   IDomEventTrack,
+  IConsoleEventTrack,
 } from '@bee/track-shared';
-import { TrackEvent } from './event';
-import { report } from '.';
+import { report, TrackEvent } from '@bee/track-core';
 import json5 from 'json5';
 
-export const XHRProxy = () => {
+const XHRProxy = () => {
   if (!('XMLHttpRequest' in _global)) {
     return;
   }
@@ -55,7 +57,7 @@ export const XHRProxy = () => {
   });
 };
 
-export const fetchProxy = () => {
+const fetchProxy = () => {
   if (!('fetch' in _global)) {
     return;
   }
@@ -161,56 +163,50 @@ export const consoleProxy = (): void => {
       return;
     }
     proxyHelper(_global.console, level, function (...args: any[]) {
-      TrackEvent.emit(TrackEventType.CONSOLE, { args, level });
+      TrackEvent.emit(TrackEventType.CONSOLE, {
+        logArgs: JSON.stringify(args),
+        logType: level,
+      } as IConsoleEventTrack);
     });
   });
 };
 
-export const documentEventProxy = () => {
+export const domEventProxy = () => {
   if (!('document' in _global)) {
     return;
   }
 
-  _global.document.addEventListener('click', function (e: MouseEvent) {
-    const nodes = e
-      .composedPath()
-      .filter((node: HTMLElement) => !isNil(node.tagName)) as HTMLElement[];
-    nodes.forEach((node: HTMLElement, index: number) => {
-      const point = node.getAttribute('bee-track-click');
-      if (point) {
-        const parsedPoint = json5.parse(point) as IDomEventTrack;
-        TrackEvent.emit(TrackEventType.CLICK, {
-          event: 'click',
-          xpath: getXPath(nodes, index),
-          point: parsedPoint.point,
-          params: parsedPoint.params,
-        } as IDomEventTrack);
-      }
-    });
-    // points.forEach((point: string) => {
-    //   const parsedPoint = json5.parse(point) as IDomEventTrack;
-    //   TrackEvent.emit(TrackEventType.CLICK, {
-    //     event: 'click',
-    //     xpath,
-    //     point: parsedPoint.point,
-    //     params: parsedPoint.params,
-    //   } as IDomEventTrack);
-    // });
-  });
+  _global.document.addEventListener(
+    'click',
+    function (e: MouseEvent) {
+      const nodes = e
+        .composedPath()
+        .filter((node: HTMLElement) => !isNil(node.tagName)) as HTMLElement[];
+      nodes.forEach((node: HTMLElement, index: number) => {
+        const point = node.getAttribute('bee-track-click');
+        if (point) {
+          const parsedPoint = json5.parse(point) as IDomEventTrack;
+          const elementProperties = getElementInfoByEvent(e);
+          TrackEvent.emit(TrackEventType.CLICK, {
+            event: 'click',
+            xpath: getEventElementPath(nodes, index),
+            elementProperties,
+            point: parsedPoint.point,
+            params: parsedPoint.params,
+          } as IDomEventTrack);
+        }
+      });
+    },
+    true,
+  );
 };
 
-const getXPath = (nodes: HTMLElement[], index: number) => {
-  let xpath = '';
-  let tagName = '';
-  let id = '';
-  const len = nodes.length;
-  let node: HTMLElement;
-  for (let i = index; i < len; i++) {
-    node = nodes[i];
-    tagName = node.tagName;
-    id = node.id;
-    xpath =
-      `${tagName}${id ? '#' + id : ''}${i === index ? '' : ' > '}` + xpath;
-  }
-  return xpath;
+export const httpProxy = () => {
+  XHRProxy();
+  fetchProxy();
+};
+
+export const routeProxy = () => {
+  historyProxy();
+  listenHashChange();
 };

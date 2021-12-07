@@ -2,7 +2,8 @@
   "name": "@bee/track-web",
   "version": "1.0.0",
   "description": "@bee/track-web",
-  "main": "index.js",
+  "main": "dist/web.js",
+  "module": "dist/web.esm.js",
   "types": "dist/web.d.ts",
   "scripts": {
     "build": "cross-env PACKAGE=utils lerna exec -- rollup -c ../../rollup.config.js",

@@ -25,6 +25,7 @@ const XHRProxy = () => {
   if (!('XMLHttpRequest' in _global)) {
     return;
   }
+
   let xhrTrackData: IHttpTack = {} as IHttpTack;
   proxyHelper(XMLHttpRequest.prototype, 'open', function (...args: any[]) {
     xhrTrackData = {

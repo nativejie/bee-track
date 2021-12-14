@@ -17,6 +17,7 @@
     "@types/wechat-miniprogram": "^3.4.0",
     "crypto-js": "^4.1.1",
     "js-cookie": "^3.0.1",
-    "mitt": "^3.0.0"
+    "mitt": "^3.0.0",
+    "uuid": "^8.3.2"
   }
 }

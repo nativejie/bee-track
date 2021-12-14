@@ -12,9 +12,9 @@ export enum HttpType {
 
 export enum TrackEventType {
   HTTP = 'http',
-  CLICK = 'click',
+  DOM = 'dom',
   ROUTE = 'route',
   CONSOLE = 'console',
 }
 
-export type DocumentEvent = 'click' | 'blur' | 'focus';
+export type DocumentEvent = 'click' | 'blur' | 'focus' | 'exposure';

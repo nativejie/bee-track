@@ -3,7 +3,7 @@ import { DocumentEvent, HttpType } from '..';
 export interface IHttpTack {
   method: string;
   url: string;
-  params?: string | ReadableStream<Uint8Array>;
+  params?: string | Record<string, any> | ReadableStream<Uint8Array>;
   startTime: number;
   endTime?: number;
   status?: number;

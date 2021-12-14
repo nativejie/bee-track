@@ -22,7 +22,7 @@ export class Record {
   }
 
   shift(): boolean {
-    return this.records.shift !== undefined;
+    return this.records.shift() !== undefined;
   }
 
   clear(): void {
@@ -36,6 +36,11 @@ export class Record {
   setting(options: ITackOptions) {
     const { maxRecords } = options;
     this.maxRecords = maxRecords;
+  }
+
+  getParentId(trackId: number) {
+    return (this.records.find((item) => item.trackId === trackId) || {})
+      .parentTrackId;
   }
 }
 

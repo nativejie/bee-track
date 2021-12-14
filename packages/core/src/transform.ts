@@ -80,14 +80,14 @@ export const domEventTransform = (data: IDomEventTrack): IReportData => {
     return {};
   }
   const basciData = getBasicData();
-  const { point, xpath, params, event, elementProperties } = data;
+  const { point, xpath, params: pointParams, event, elementProperties } = data;
   return {
     ...basciData,
     event,
     extra: {
       point,
       xpath,
-      params,
+      pointParams,
       ...basciData.extra,
       ...elementProperties,
     },
@@ -122,14 +122,14 @@ export const httpTransform = (data: IHttpTack): IHttpReportData => {
   return {
     event: 'http',
     time,
-    startTime,
-    endTime,
     message,
     extra: {
       curPage,
       ...basicData.extra,
     },
     request: {
+      startTime,
+      endTime,
       httpType: type,
       method,
       url,

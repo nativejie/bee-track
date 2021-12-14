@@ -10,5 +10,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "JieZhou",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@bee/track-core": "^1.0.1",
+    "@bee/track-shared": "^1.0.1",
+    "@bee/track-utils": "^1.0.1",
+    "@types/vue": "^2.0.0"
+  }
 }

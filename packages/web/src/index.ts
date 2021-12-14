@@ -1,6 +1,7 @@
 import { _global, isUndefined, isArray, isString } from '@bee/track-utils';
 import { setup } from '@bee/track-core';
 import { ITackOptions, ProxyType } from '@bee/track-shared';
+import { TrackVue } from '@bee/track-vue';
 import { consoleProxy, domEventProxy, httpProxy, routeProxy } from './proxy';
 
 const init = (options: ITackOptions): void => {
@@ -34,4 +35,4 @@ const setupProxy = (proxyEvent: ProxyType[] | Lowercase<ProxyType>) => {
   }
 };
 
-export { init };
+export { init, TrackVue };

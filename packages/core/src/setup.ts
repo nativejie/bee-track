@@ -1,5 +1,5 @@
 import { ITackOptions } from '@bee/track-shared';
-import { logger, _extra } from '@bee/track-utils';
+import { logger, _extra, _global } from '@bee/track-utils';
 import { record, report } from '.';
 
 export const setup = async (options: ITackOptions) => {

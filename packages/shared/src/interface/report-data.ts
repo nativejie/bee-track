@@ -9,6 +9,8 @@ export interface IRequestData {
   url?: string;
   method?: string;
   data: any;
+  startTime: number;
+  endTime: number;
 }
 
 export interface IReportElementData {
@@ -48,7 +50,7 @@ export interface IReportExtraData
   prevPage?: string;
   curPage?: string;
   pageTitle?: string;
-  params?: any;
+  pointParams?: any;
   point?: string;
   xpath?: string;
   rtt?: number;

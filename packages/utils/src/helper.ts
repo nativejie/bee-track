@@ -1,5 +1,6 @@
 import { isBrowserEnv, isUndefined, isWxEnv, _global } from '.';
 import CryptoJS from 'crypto-js';
+import { v1 as uuidv1 } from 'uuid';
 import { SECRET } from '@bee/track-shared';
 
 export const proxyHelper = (
@@ -42,6 +43,10 @@ export const getWindowScreen = () => {
 
 export const AES = (str: string): string => {
   return CryptoJS.AES.encrypt(str, SECRET).toString();
+};
+
+export const uuid = (): string => {
+  return uuidv1();
 };
 
 export const getTrackId = () => {

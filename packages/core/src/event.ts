@@ -41,8 +41,8 @@ TrackEvent.on(TrackEventType.ROUTE, (routeTrack: IRouteEventTrack) => {
   report.send(data);
 });
 
-TrackEvent.on(TrackEventType.CLICK, (clickTrack: IDomEventTrack) => {
-  const data = domEventTransform(clickTrack);
+TrackEvent.on(TrackEventType.DOM, (eventTrack: IDomEventTrack) => {
+  const data = domEventTransform(eventTrack);
   record.push(data);
   report.send(data);
 });

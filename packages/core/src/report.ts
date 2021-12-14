@@ -11,14 +11,18 @@ import {
   _global,
   isString,
   _extra,
-  AES,
   isObject,
+  getCookie,
+  uuid,
 } from '@bee/track-utils';
+import { record } from '.';
 
 export class Report {
   private reportUrl = '';
   private appKey = '';
   private distinctId = '';
+  private user = '';
+  private httpWhiteList = [];
 
   // 后期多链接 需要改成域名判断
   isReportUrl(traget: string) {
@@ -28,11 +32,42 @@ export class Report {
     return false;
   }
 
+  isWhiteList(url: string) {
+    if (this.httpWhiteList.length >>> 0 === 0) {
+      return true;
+    }
+    const domain = (url.split('/') || [])[2];
+    if (domain && this.httpWhiteList.includes(domain)) {
+      return true;
+    }
+    return false;
+  }
+
   async setting(options: ITackOptions) {
-    const { reportUrl, appKey, user } = options;
+    const { reportUrl, appKey, user, httpWhiteList } = options;
     this.reportUrl = reportUrl;
     this.appKey = appKey;
-    this.distinctId = AES(isObject(user) ? JSON.stringify(user) : user);
+    this.user = user;
+    this.httpWhiteList = httpWhiteList || [];
+    this.distinctId = this.getDistinctId();
+  }
+
+  getDistinctId(): string {
+    if (this.user) {
+      return isObject(this.user) ? JSON.stringify(this.user) : this.user;
+    }
+    const eid = getCookie('EID');
+    if (eid) {
+      return eid;
+    }
+    const storeDistinctId = localStorage.getItem('distinct_id');
+    if (storeDistinctId) {
+      return storeDistinctId;
+    } else {
+      const uid = uuid();
+      localStorage.setItem('distinct_id', uid);
+      return uid;
+    }
   }
 
   imgSend(data: IReportData): void {
@@ -71,6 +106,7 @@ export class Report {
     data.distinctId = this.distinctId;
     data.appKey = this.appKey;
     data.libVersion = LIB_VERSION;
+    data.parentTrackId = record.getParentId(data.trackId);
     return data;
   }
 

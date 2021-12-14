@@ -2,13 +2,13 @@ import {
   isObject,
   _global,
   _extra,
-  logger,
+  getUrlQuery,
   supportsHistory,
   getLocationHref,
   proxyHelper,
   isNil,
   getEventElementPath,
-  getElementInfoByEvent,
+  getElementInfo,
 } from '@bee/track-utils';
 import {
   RequestMethod,
@@ -38,10 +38,13 @@ const XHRProxy = () => {
   proxyHelper(XMLHttpRequest.prototype, 'open', function (...args: any[]) {
     this.onloadend = function () {
       const { method, url } = xhrTrackData;
-      if (method === RequestMethod.POST && report.isReportUrl(url)) {
+      if (
+        (method === RequestMethod.POST && report.isReportUrl(url)) ||
+        !report.isWhiteList(url)
+      ) {
         return;
       }
-      xhrTrackData.params = args[0];
+      xhrTrackData.params = args[2] || getUrlQuery(url);
       const { responseType, response, status } = this;
       xhrTrackData.endTime = Date.now();
       xhrTrackData.status = status;
@@ -73,7 +76,7 @@ const fetchProxy = () => {
       url,
       startTime,
       type: HttpType.FETCH,
-      params: config && config.body,
+      params: (config && config.body) || getUrlQuery(url),
     };
     return orignFetch
       .apply(_global, [url, config])
@@ -86,13 +89,18 @@ const fetchProxy = () => {
           time: endTime - startTime,
           status: tempRes.status,
         };
-        tempRes.text().then((data) => {
-          if (method === RequestMethod.POST && report.isReportUrl(url)) {
-            return;
-          }
-          fetchTrackData.responseText = data;
-          TrackEvent.emit(TrackEventType.HTTP, fetchTrackData);
-        });
+        ((trackData) => {
+          tempRes.text().then((data) => {
+            if (
+              (method === RequestMethod.POST && report.isReportUrl(url)) ||
+              !report.isWhiteList(url)
+            ) {
+              return;
+            }
+            trackData.responseText = data;
+            TrackEvent.emit(TrackEventType.HTTP, trackData);
+          });
+        })(fetchTrackData);
         return res;
       })
       .catch((err: Error) => {
@@ -184,8 +192,8 @@ export const domEventProxy = () => {
         const point = node.getAttribute('bee-track-click');
         if (point) {
           const parsedPoint = json5.parse(point) as IDomEventTrack;
-          const elementProperties = getElementInfoByEvent(e);
-          TrackEvent.emit(TrackEventType.CLICK, {
+          const elementProperties = getElementInfo(e.target as HTMLElement);
+          TrackEvent.emit(TrackEventType.DOM, {
             event: 'click',
             xpath: getEventElementPath(nodes, index),
             elementProperties,

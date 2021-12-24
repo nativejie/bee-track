@@ -1,6 +1,6 @@
 <div align="center">
     <h2>Bee Track</h2>
-    <p>前端埋点SDK</p>
+    <p>前端埋点SDK - 功能有限 还在完善中</p>
   </div>
 
 [![NPM](https://img.shields.io/badge/npm-7.4.0-blue)](https://https://www.npmjs.com/)
@@ -31,7 +31,7 @@ init({
     user: 'xxxx',
 });
 ```
-Vue引入
+### `Vue`引入
 ```javascript
 import { init, VueTrack } from '@bee/track-web'
 

@@ -1,0 +1,13 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "useWorkspaces": true,
+  "version": "independent",
+  "npmClient": "yarn",
+  "commend": {
+    "publish": {
+      "ignoreChanges": ["*.md"]
+    }
+  }
+}

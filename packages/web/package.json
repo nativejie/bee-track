@@ -1,0 +1,20 @@
+{
+  "name": "@bee/track-web",
+  "version": "1.1.0",
+  "description": "@bee/track-web",
+  "main": "dist/web.js",
+  "module": "dist/web.esm.js",
+  "types": "dist/web.d.ts",
+  "scripts": {
+    "build": "cross-env PACKAGE=utils lerna exec -- rollup -c ../../rollup.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JieZhou",
+  "license": "ISC",
+  "dependencies": {
+    "@bee/track-core": "^1.1.0",
+    "@bee/track-shared": "^1.1.0",
+    "@bee/track-utils": "^1.1.0",
+    "@bee/track-vue": "^1.1.0"
+  }
+}

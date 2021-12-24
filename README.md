@@ -31,6 +31,20 @@ init({
     user: 'xxxx',
 });
 ```
+Vue引入
+```javascript
+import { init, VueTrack } from '@bee/track-web'
+
+init({
+  reportUrl: 'http://localhost:9999/track/post-data',
+    appKey: 'uuid-uuid',
+    debug: true,
+    user: 'xxxx',
+});
+
+Vue.use(VueTrack)
+```
+可使用指令：`v-bee-track:exposure`：曝光指令，曝光范围`75%`,`v-bee-track:click`：点击指令
 
 ### 配置项
 
